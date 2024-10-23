@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English To Arabic Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            width: 500px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .translate-box {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            outline: none;
+            resize: none;
+        }
+        .btn {
+            background-color: #4285f4;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .btn:hover {
+            background-color: #357ae8;
+        }
+        .output-box {
+            border: 1px solid #ced4da;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #f1f3f4;
+            color: #202124;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #4285f4;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Translate English to Arabic</h2>
+    <textarea id="input-text" class="translate-box" rows="4" placeholder="Enter English sentence..."></textarea>
+    <button class="btn" onclick="translateText()">Translate</button>
+    
+    <!-- Loading spinner -->
+    <div id="loading-spinner" class="loading-spinner"></div>
+    
+    <div id="output-text" class="output-box" style="display:none;"></div>
+</div>
+
+<script>
+    async function translateText() {
+        const inputText = document.getElementById('input-text').value;
+        const outputText = document.getElementById('output-text');
+        const loadingSpinner = document.getElementById('loading-spinner');
+
+        if (!inputText.trim()) {
+            alert('Please enter a sentence.');
+            return;
+        }
+
+        // Show loading spinner and hide the output text
+        loadingSpinner.style.display = 'block';
+        outputText.style.display = 'none';
+
+        try {
+            // Send the input to the backend API for translation
+            const response = await fetch('http://localhost:9897/translate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ sentence: inputText }),
+            });
+
+            const result = await response.json();
+
+            // Hide loading spinner and display the translated text
+            loadingSpinner.style.display = 'none';
+            outputText.style.display = 'block';
+            outputText.innerText = result.translation;
+
+        } catch (error) {
+            // Hide loading spinner and show an error message
+            loadingSpinner.style.display = 'none';
+            outputText.style.display = 'block';
+            outputText.innerText = 'An error occurred while translating. Please try again.';
+        }
+    }
+</script>
+
+</body>
+</html>

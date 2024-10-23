@@ -1,0 +1,17 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "9897:9897"
+    environment:
+      - FLASK_ENV=production
+    command: gunicorn --bind 0.0.0.0:9897 main:app
+
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    command: python -m http.server 3000
