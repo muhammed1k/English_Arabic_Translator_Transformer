@@ -2,7 +2,7 @@
 # English-to-Arabic Translator using a Transformer Model
 
 ## Table of Contents
-1. [Overview](#overview)
+1. [Overview](#Overview)
 2. [Features](#features)
 3. [Technologies Used](#technologies-used)
 4. [Setup and Installation](#setup-and-installation)
