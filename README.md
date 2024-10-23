@@ -14,6 +14,8 @@
 ## 1. Overview
 This project is an **English-to-Arabic Neural Machine Translation (NMT)** system built using a **Transformer model**. It allows users to input English sentences and receive translations in Arabic. The system is composed of two parts: a backend server using **Flask** and **TensorFlow**, and a frontend served using **Python's HTTP Server**. The model is trained using a **Transformer architecture** and performs real-time translations.
 
+![Demo](media/demo.gif)
+
 ## 2. Features
 - **Real-time Translation**: Translates English to Arabic.
 - **Pretrained Transformer Model**: Incorporates a state-of-the-art transformer model for language translation.
