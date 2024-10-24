@@ -2,7 +2,7 @@ import tensorflow as tf
 import utils
 import data
 from config import config
-from schdulers import *
+from schedulers import *
 from models import *
 from loss import *
 from layers import *

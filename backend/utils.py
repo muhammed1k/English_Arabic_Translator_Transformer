@@ -1,7 +1,7 @@
 import tensorflow as tf
 import pathlib
 from config import config
-import schdulers
+import schedulers
 from models import *
 import data
 import loss
@@ -23,7 +23,7 @@ def load_model(path_to_data,output_path,epochs,train=False):
     if path_to_data is None:
         path_to_data = config.path_to_data
     dataset,en,ar = load_data(path_to_data)
-    learning_rate = schdulers.CustomSchedule(config.d_model)
+    learning_rate = schedulers.CustomSchedule(config.d_model)
 
     optimizer = tf.keras.optimizers.Adam(learning_rate, beta_1=0.9, beta_2=0.98,
                                         epsilon=1e-9)
